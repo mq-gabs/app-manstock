@@ -1,6 +1,6 @@
-# React + TypeScript + Vite
+# Manstock (Manage Stock)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application is a market cashier system. It was made 
 
 Currently, two official plugins are available:
 
