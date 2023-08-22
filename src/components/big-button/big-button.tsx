@@ -4,14 +4,16 @@ import { StyledBigButton } from "./big-button.styles";
 interface IBigButton {
   iconName: IIcon["name"];
   text: string;
+  onClick: () => void;
 }
 
 export const BigButton = ({
   iconName,
   text,
+  onClick = () => {},
 }: IBigButton) => {
   return (
-    <StyledBigButton>
+    <StyledBigButton onClick={onClick}>
       <Icon name={iconName} />
       <p>{text}</p>
     </StyledBigButton>

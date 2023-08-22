@@ -9,7 +9,7 @@ export const StyledBigButton = styled.button`
   gap: 2rem;
   border-radius: 1rem;
   cursor: pointer;
-  transition: 300ms;
+  transition: 200ms;
   border: none;
   
   &:nth-child(even) {

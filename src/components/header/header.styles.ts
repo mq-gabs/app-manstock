@@ -24,4 +24,12 @@ export const StyledHeader = styled.header`
     color: ${({ theme }) => theme.colors.secondary};
     font-size: 3rem;
   }
+
+  @media (max-width: 600px) {
+    padding: 0 1rem;
+
+    h1 {
+      display: none;
+    }
+  }
 `;

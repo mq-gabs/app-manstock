@@ -1,13 +1,13 @@
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './assets/themes/global';
 import light from './assets/themes/light';
-import { Home } from './pages/home/home';
+import { Router } from './routes';
 
 function App() {
   return (
     <ThemeProvider theme={light}>
       <GlobalStyles />
-      <Home />
+      <Router />
     </ThemeProvider>
   )
 }
