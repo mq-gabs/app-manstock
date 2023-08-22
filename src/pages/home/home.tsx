@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { BigButton, Header } from "../../components";
+import { BigButton } from "../../components";
 import { StyledHome } from "./home.styles";
 
 export const Home = () => {
+  document.title = 'Manstock';
   const navigate = useNavigate();
 
   return (
     <StyledHome>
-      <Header />
       <div className="btns-wrapper">
         <BigButton
           iconName="addChart"

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledHeader = styled.header`
   background: ${({ theme }) => theme.colors.primary};
   width: 100%;
-  height: 100px;
+  height: 70px;
   padding: 0 2rem;
   display: flex;
   align-items: center;
@@ -16,13 +16,13 @@ export const StyledHeader = styled.header`
   }
 
   img {
-    width: 5rem;
-    height: 5rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   h1 {
     color: ${({ theme }) => theme.colors.secondary};
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   @media (max-width: 600px) {

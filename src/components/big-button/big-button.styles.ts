@@ -27,6 +27,7 @@ export const StyledBigButton = styled.button`
 
   &:hover {
     transform: scale(1.05);
+    filter: brightness(120%);
   }
 
   p {
