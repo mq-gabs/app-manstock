@@ -16,6 +16,9 @@ import carGrey from '../../assets/images/car-grey.svg';
 import loading from '../../assets/images/loading.svg';
 import searchWhite from '../../assets/images/search-white.svg';
 import name from '../../assets/images/name.svg';
+import logo from '../../assets/images/logo.svg';
+import password from '../../assets/images/password.svg';
+import email from '../../assets/images/email.svg';
 
 const icons = {
   addChart,
@@ -36,6 +39,9 @@ const icons = {
   loading,
   searchWhite,
   name,
+  logo,
+  email,
+  password,
 };
 
 export interface IIcon {
@@ -56,14 +62,26 @@ export interface IIcon {
   | 'carGrey'
   | 'loading'
   | 'searchWhite'
-  | 'name';
+  | 'name'
+  | 'logo'
+  | 'email'
+  | 'password';
   onClick?: () =>  void;
+  size?: number;
 }
 
 const Icon = ({
   name,
   onClick = () => {},
+  size = 1,
   ...rest
-}: IIcon) => <img onClick={onClick} src={icons[name]} {...rest} />
+}: IIcon) => (
+  <img
+    style={{ width: String(size + "rem"), height: String(size + "rem")}}
+    onClick={onClick}
+    src={icons[name]}
+    {...rest}
+  />
+)
 
 export default Icon;

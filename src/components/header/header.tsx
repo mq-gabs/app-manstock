@@ -1,6 +1,6 @@
 import { StyledHeader } from "./header.styles";
-import logo from '../../assets/images/logo.svg';
 import { useNavigate } from "react-router-dom";
+import Icon from "../icon";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <div className="logo" onClick={() => navigate('/')}>
-        <img src={logo} alt="Logotipo Manstock" />
+        <Icon name="logo" size={3} />
         <h1>Manstock</h1>
       </div>
     </StyledHeader>

@@ -3,7 +3,7 @@ import { StyledButton } from "./button.styles";
 
 interface IButton {
   text: string;
-  iconName: IIcon["name"];
+  iconName?: IIcon["name"];
   onClick: () => void;
   color?: 'primary' | 'secondary';
 }
