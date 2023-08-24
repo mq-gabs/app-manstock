@@ -6,10 +6,6 @@ export const StyledCard = styled.div`
   gap: 1rem;
   border-bottom: 1px solid black;
 
-  &:nth-last-child() {
-    border: none;
-  }
-
   p {
     font-size: 1.5rem;
   }

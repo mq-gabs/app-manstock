@@ -7,6 +7,7 @@ interface ICard {
   quantity: number;
   setQuantity: (arg: any) => void;
   onDelete: () => void;
+  simple?: boolean;
 }
 
 export const Card = ({
@@ -15,6 +16,7 @@ export const Card = ({
   quantity,
   setQuantity = () => {},
   onDelete = () => {},
+  simple = false,
 }: ICard) => {
   const handleAddQuantity = () => {
     setQuantity(quantity + 1);
@@ -30,15 +32,26 @@ export const Card = ({
     <StyledCard>
       <div className="top">
         <p>{name}</p>
-        <Icon name="trash" onClick={onDelete} />
+        {!simple && (
+          <Icon name="trash" onClick={onDelete} />
+        )}
       </div>
       <div className="bottom">
         <div className="icons">
-          <Icon name="add" onClick={handleAddQuantity} />
-          <Icon name="sub" onClick={handleSubQuantity} />
+          {!simple && (
+            <>
+              <Icon name="add" onClick={handleAddQuantity} />
+              <Icon name="sub" onClick={handleSubQuantity} />
+            </>
+          )}
         </div>
         <p>
-          {quantity} X R$ {price.toFixed(2)} = <span> R$ {(quantity * price).toFixed(2)} </span>
+          {!simple && (
+            <>
+              {quantity} X R$ {price.toFixed(2)} = 
+            </>
+          )}
+          <span> R$ {(quantity * price).toFixed(2)} </span>
         </p>
       </div>
     </StyledCard>

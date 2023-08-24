@@ -16,7 +16,6 @@ export const HMenu = ({
   selected,
   setSelected,
 }: IHMenu) => {
-  console.log({ selected });
   return (
     <StyledHMenu selected={selected} size={options.length}>
       {options?.map((option: IHMenuOption, index: number) => (

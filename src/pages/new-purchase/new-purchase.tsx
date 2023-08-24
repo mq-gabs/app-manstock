@@ -2,46 +2,69 @@ import { useEffect, useState } from "react";
 import { Button, Card, HMenu, Input, Loading } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
+import { IFormatedProduct, IProduct } from "../../interfaces";
 
-const mockedProducts = [
+const mockedFormatedProducts = [
   {
-    id: '0',
+    id: 'a0',
     name: 'Café maratá 300g',
     price: 5.8,
     quantity: 0,
   },
   {
-    id: '1',
+    id: 'a1',
     name: 'Detergente Ypê 90ml',
     price: 3.8,
     quantity: 0,
   },
   {
-    id: '2',
+    id: 'a2',
     name: 'Banana prata',
     price: 8.99,
     quantity: 0,
   },
   {
-    id: '3',
+    id: 'a3',
     name: 'Nuggets de frango 500g',
     price: 14.90,
     quantity: 0,
   },
 ];
 
-interface IProduct {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
+const mockedProducts = [
+  {
+    id: 'b0',
+    name: 'Café maratá 300g',
+    price: 5.9,
+  },
+  {
+    id: 'b1',
+    name: 'Detergente Ypê 90ml',
+    price: 3.8,
+  },
+  {
+    id: 'b2',
+    name: 'Detergente Ypê 90ml',
+    price: 3.8,
+  },
+  {
+    id: 'b3',
+    name: 'Detergente Ypê 90ml',
+    price: 3.8,
+  },
+  {
+    id: 'b4',
+    name: 'Detergente Ypê 90ml',
+    price: 3.8,
+  },
+];
 
 export const NewPurchase = () => {
   document.title = 'Manstock - Nova Compra';
-  const [products, setProducts] = useState<IProduct[]>(mockedProducts);
+  const [products, setProducts] = useState<IFormatedProduct[]>(mockedFormatedProducts);
+  const [searchedProducts, setSearchedProducts] = useState<IProduct[]>(mockedProducts);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [total, setTotal] = useState<number>(12.9);
+  const [total, setTotal] = useState<number>(0);
   const [barCodeInput, setBarCodeInput] = useState<string>("");
   const [nameInput, setNameInput] = useState<string>("");
   const [selectedMenuOption, setSelectedMenuOption] = useState<number>(0);
@@ -49,7 +72,7 @@ export const NewPurchase = () => {
   useEffect(() => {
     let total = 0;
 
-    products.forEach((product: IProduct) => {
+    products.forEach((product: IFormatedProduct) => {
       total += product.quantity * product.price;
     });
 
@@ -57,7 +80,8 @@ export const NewPurchase = () => {
   }, [products])
 
   const handleSearchProdcut = () => {
-
+    setIsLoading(isLoading);
+    setSearchedProducts(mockedProducts);
   }
 
   const handleCancelPurchase = () => {
@@ -69,7 +93,7 @@ export const NewPurchase = () => {
   }
 
   const handleRemoveProduct = (id: string) => {
-    const newProducts = products.filter((product: IProduct) => product.id !== id);
+    const newProducts = products.filter((product: IFormatedProduct) => product.id !== id);
     setProducts(newProducts);
   }
 
@@ -83,7 +107,7 @@ export const NewPurchase = () => {
       return;
     }
 
-    const newProducts = products.map((product: IProduct) => (
+    const newProducts = products.map((product: IFormatedProduct) => (
       product.id === id ? { ...product, quantity: newValue } : product
     ));
     setProducts(newProducts);
@@ -92,7 +116,7 @@ export const NewPurchase = () => {
   return (
     <StyledNewPurchase>
       <div className="list">
-        {products.length !== 0 && !isLoading && products.map((product: IProduct) => (
+        {products.length !== 0 && !isLoading && products.map((product: IFormatedProduct) => (
           <Card
             key={product.id}
             name={product.name}
@@ -102,16 +126,19 @@ export const NewPurchase = () => {
             onDelete={() => handleRemoveProduct(product.id)}
           />
         ))}
+        
         {products.length === 0 && !isLoading && (
           <div className="empty-purchase-list">
             <Icon name="carGrey" />
             <h3>Sua lista está vazia...</h3>
           </div>
         )}
+
         {isLoading && (
           <Loading />
         )}
       </div>
+
       <div className="options">
         <div className="options-top">
           <Button
@@ -151,11 +178,32 @@ export const NewPurchase = () => {
             onClick={selectedMenuOption === 0 ? handleAddProduct : handleSearchProdcut}
             iconName={selectedMenuOption === 0 ? "addProduct" : "searchWhite"}
           />
+          {selectedMenuOption === 1 && (
+            <div className="searched-products">
+            {searchedProducts.length !== 0 && searchedProducts?.map(product => (
+              <Card
+                key={product.id}
+                simple
+                name={product.name}
+                price={product.price}
+                quantity={0}
+                setQuantity={() => {}}
+                onDelete={() => {}}
+              />
+            ))}
+
+            {searchedProducts.length === 0 && (
+              <p>Nenhum produto encontrado...</p>
+            )}
+            </div>
+          )}
         </div>
 
         <div className="options-bottom">
-          <p>TOTAL:</p>
-          <h2>R$ {total.toFixed(2)}</h2>
+          <div className="options-bottom-text">
+            <p>TOTAL:</p> 
+            <h2>R$ {total.toFixed(2)}</h2>
+          </div>
           <Button
             text="finalizar compra"
             iconName="checkCar"
