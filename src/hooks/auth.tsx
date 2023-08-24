@@ -38,8 +38,6 @@ const AuthProvider = ({ children }: { children: ReactElement[] }) => {
 
   const { popUp } = usePopUp();
 
-  console.log({ userData, token: userData.token, decode: userData.token ? jwtDecode(userData.token) : undefined});
-
   useEffect(() => {
     if (!userData.token) return;
     localStorage.setItem(storageNick, JSON.stringify(userData));

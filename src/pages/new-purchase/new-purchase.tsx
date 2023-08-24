@@ -3,7 +3,7 @@ import { Button, Card, HMenu, Input, Loading } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
 import { IFormatedProduct, IProduct } from "../../interfaces";
-import { getProducts, getRandomProduct } from "../../services";
+import { getProductByCode, getProducts, getRandomProduct } from "../../services";
 import { useAuth } from "../../hooks/auth";
 import { usePopUp } from "../../hooks/toast";
 
@@ -51,24 +51,15 @@ export const NewPurchase = () => {
   }
 
   const handleCancelPurchase = async () => {
-
+    setProducts([]);
+    popUp({
+      message: 'Você cancelou a compra!',
+      type: 'warning',
+      title: 'Aviso!',
+    });
   }
 
-  const handleAddProduct = () => {
-
-  }
-
-  const handleAddRandomProduct = async () => {
-    const data = await getRandomProduct();
-
-    if (!data) {
-      popUp({
-        message: 'Não foi possível buscar produto aleatório',
-        type: "warning"
-      });
-      return;
-    }
-    
+  const addProduct = (data: IProduct) => {
     let exists = false;
 
     let newProducts = products.map(product => {
@@ -84,6 +75,44 @@ export const NewPurchase = () => {
     }
 
     setProducts(newProducts);
+  }
+
+  const handleAddProduct = async () => {
+    if (!barCodeInput) {
+      popUp({
+        message: 'Preencha o campo do código de barras!',
+        type: 'warning',
+        title: 'Atenção!',
+      });
+      return;
+    }
+
+    const data = await getProductByCode({ code: barCodeInput });
+
+    if (!data) {
+      popUp({
+        message: 'Código não encontrado',
+        type: 'warning',
+        title: 'Atenção!',
+      });
+      return;
+    }
+
+    addProduct(data);
+  }
+
+  const handleAddRandomProduct = async () => {
+    const data = await getRandomProduct();
+
+    if (!data) {
+      popUp({
+        message: 'Não foi possível buscar produto aleatório',
+        type: "warning"
+      });
+      return;
+    }
+    
+    addProduct(data);
   }
   
   const handleRemoveProduct = (id: string) => {
@@ -116,8 +145,6 @@ export const NewPurchase = () => {
     if (!data) return;
 
     setSearchedProducts(data[0]);
-
-    console.log({ data });
   }
   
   useEffect(() => {
