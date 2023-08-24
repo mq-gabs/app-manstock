@@ -1,25 +1,18 @@
-import { useState } from "react";
-import { Toaster } from "../../components";
-
-const types = [
-  'warning',
-  'info',
-  'success',
-];
+import { usePopUp } from "../../hooks/toast";
 
 export const SearchProduct = () => {
   document.title = 'Manstock - Buscar Produto'
-  const [toasts, setToasts] = useState<any[]>([]);
-  
-  const addToast = () => {
-    setToasts([...toasts, { id: Math.ceil(Math.random() * 100000), type: types[Math.ceil(Math.random() * 3) - 1] }]);
-  }
+  const { popUp } = usePopUp();
+
+  console.log({ popUp });
 
   return (
     <>
       <h1>Search Product</h1>
-      <button onClick={addToast}>CLICK</button>
-      <Toaster toasts={toasts} setToasts={setToasts} />
+      <button onClick={() => popUp({
+        message: 'Agora já tá na hora de almoçar. Bora almoçar galera',
+        type: "info",
+      })}>CLICK</button>
     </>
   );
 }

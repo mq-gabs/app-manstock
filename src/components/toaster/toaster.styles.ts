@@ -10,6 +10,7 @@ export const StyledToaster = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  z-index: 999;
 `;
 
 export const StyledToast = styled.div<{ animationstate: string, type: string }>`

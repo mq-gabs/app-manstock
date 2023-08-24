@@ -21,7 +21,7 @@ export const SignIn = () => {
 
   return (
     <StyledSignIn>
-      <div className="wrapper">
+      <form className="wrapper" onSubmit={handleSignIn}>
         <div className="title">
         <Icon name="logo" size={4} />
         <h1>Manstock</h1>
@@ -41,9 +41,9 @@ export const SignIn = () => {
           />
         <Button
           text="Entrar"
-          onClick={handleSignIn}       
+          onClick={handleSignIn}
         />
-      </div>
+      </form>
     </StyledSignIn>
   );
 }

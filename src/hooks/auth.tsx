@@ -22,10 +22,13 @@ const storageNick = '@manstock:user';
 
 const AuthContext = createContext({} as IAuthContext);
 
-const AuthProvider = ({ children }: { children: ReactElement[] }) => {
-  const [userData, setUserData] = useState<IUserData>({} as IUserData);
+const AuthProvider = ({ children }: { children: ReactElement }) => {
+  const localUserData = JSON.parse(localStorage.getItem(storageNick) || '{}');
+
+  const [userData, setUserData] = useState<IUserData>(localUserData || {} as IUserData);
 
   useEffect(() => {
+    if (!userData.token) return;
     localStorage.setItem(storageNick, JSON.stringify(userData));
   }, [userData])
 

@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { StyledToast, StyledToaster } from "./toaster.styles";
 import Icon from "../icon";
+import { IToastElement, TToastTypes } from "../../interfaces";
 
 interface IToast {
-  text: string;
-  type: 'info' | 'warning' | 'success';
+  message: string;
+  type: TToastTypes;
+  title?: string;
   onDelete: () => void;
 }
 
 interface IToaster {
-  toasts: any[];
+  toasts: IToastElement[];
   setToasts: (arg: any) => void;
 }
 
@@ -20,7 +22,8 @@ const toastTitles = {
 };
 
 const Toast = ({ 
-  text,
+  message,
+  title,
   type = 'info',
   onDelete,
 }: IToast) => {
@@ -42,7 +45,7 @@ const Toast = ({
       <div className="toast-head">
         <div className="toast-head-title">
           <Icon name={type} />
-          <p>{toastTitles[type]}</p>
+          <p>{title || toastTitles[type]}</p>
         </div>
         <Icon onClick={handleDelete} name="cancel" />
       </div>
@@ -50,7 +53,7 @@ const Toast = ({
         <div className="toast-loadbar"></div>
       </div> */}
       <div className="toast-body">
-        <p>{text}</p>
+        <p>{message}</p>
       </div>
     </StyledToast>
   );
@@ -61,17 +64,18 @@ export const Toaster = ({
   setToasts,
 }: IToaster) => {
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: IToastElement["id"]) => {
     setToasts((prev: any) => prev.filter((t: any) => t.id !== id));
   }
 
   return(
     <StyledToaster>
-      {toasts?.map(toast => (
+      {toasts?.map((toast: IToastElement) => (
         <Toast 
           key={toast.id}
-          text={'Não foi possível buscar as informações do produto!'}
+          message={toast.message}
           type={toast.type}
+          title={toast.title}
           onDelete={() => handleDelete(toast.id)}
         />
       ))}
