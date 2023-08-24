@@ -3,14 +3,20 @@ import { Button, Input } from "../../components";
 import { signIn } from "../../services/auth/signin";
 import { StyledSignIn } from "./signin.styles";
 import Icon from "../../components/icon";
+import { useAuth } from "../../hooks/auth";
 
 export const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { setUserData } = useAuth();
 
   const handleSignIn = async () => {
-    const result = await signIn({ authData: { email, password }});
-    result;
+    if (!email || !password) {
+      
+    }
+
+    const data = await signIn({ authData: { email, password }});
+    setUserData(data);
   }
 
   return (

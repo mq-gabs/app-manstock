@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { Header } from "../components"
 import { Home, NewProduct, NewPurchase, SearchProduct, SearchPurchase } from "../pages"
 
@@ -12,6 +12,8 @@ export const AppRoutes = () => {
         <Route path="/product/search" element={<SearchProduct />} />
         <Route path="/purchase/new" element={<NewPurchase />} />
         <Route path="/purchase/search" element={<SearchPurchase />} />
+        <Route path='*' element={<Navigate to='/' />}
+      />
       </Routes>
     </>
   )

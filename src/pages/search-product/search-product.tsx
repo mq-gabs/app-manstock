@@ -13,7 +13,6 @@ export const SearchProduct = () => {
   
   const addToast = () => {
     setToasts([...toasts, { id: Math.ceil(Math.random() * 100000), type: types[Math.ceil(Math.random() * 3) - 1] }]);
-    console.log('ADD')
   }
 
   return (

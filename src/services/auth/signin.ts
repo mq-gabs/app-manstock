@@ -9,7 +9,7 @@ export const signIn = async ({
 }: ISignIn) => {
   try {
     const { data } = await api.post('/auth', authData);
-    console.log({ data });
+    return data;
   } catch (error) {
     console.log({ error });
   }

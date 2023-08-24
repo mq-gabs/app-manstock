@@ -14,7 +14,7 @@ export const BigButton = ({
 }: IBigButton) => {
   return (
     <StyledBigButton onClick={onClick}>
-      <Icon name={iconName} />
+      <Icon size={4} name={iconName} />
       <p>{text}</p>
     </StyledBigButton>
   );
