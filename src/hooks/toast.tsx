@@ -15,7 +15,7 @@ interface IToastContext {
 
 const ToastContext = createContext({} as IToastContext);
 
-const ToastProvider = ({ children }: { children: ReactElement[] }) => {
+const ToastProvider = ({ children }: { children: ReactElement }) => {
   const [toasts, setToasts] = useState<IToastElement[]>([]);
 
   const popUp = ({
@@ -31,14 +31,14 @@ const ToastProvider = ({ children }: { children: ReactElement[] }) => {
     }]);
   }
 
-  console.log({ toasts });
-
   return (
     <ToastContext.Provider value={{ popUp }}>
-      <Toaster
-        toasts={toasts}
-        setToasts={setToasts}
-      />
+      {toasts.length !== 0 && (
+        <Toaster
+          toasts={toasts}
+          setToasts={setToasts}
+        />
+      )}
       {children}
     </ToastContext.Provider>
   )

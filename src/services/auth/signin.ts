@@ -9,6 +9,9 @@ export const signIn = async ({
 }: ISignIn) => {
   try {
     const { data } = await api.post('/auth', authData);
+    
+    api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+
     return data;
   } catch (error) {
     console.log({ error });

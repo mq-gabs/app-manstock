@@ -6,6 +6,7 @@ interface IButton {
   iconName?: IIcon["name"];
   onClick: () => void;
   color?: 'primary' | 'secondary';
+  isLoading?: boolean;
 }
 
 export const Button = ({
@@ -13,11 +14,12 @@ export const Button = ({
   iconName,
   onClick = () => {},
   color = 'primary',
+  isLoading = false,
 }: IButton) => {
   return (
     <StyledButton onClick={onClick} color={color}>
       {iconName && (
-        <Icon name={iconName} />
+        <Icon name={isLoading ? "loading" : iconName} />
       )}
       <p>{text}</p>
     </StyledButton>

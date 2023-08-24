@@ -19,6 +19,7 @@ import name from '../../assets/images/name.svg';
 import logo from '../../assets/images/logo.svg';
 import password from '../../assets/images/password.svg';
 import email from '../../assets/images/email.svg';
+import out from '../../assets/images/out.svg';
 
 const icons = {
   addChart,
@@ -42,6 +43,7 @@ const icons = {
   logo,
   email,
   password,
+  out,
 };
 
 export interface IIcon {
@@ -65,23 +67,24 @@ export interface IIcon {
   | 'name'
   | 'logo'
   | 'email'
-  | 'password';
+  | 'password'
+  | 'out';
   onClick?: () =>  void;
   size?: number;
 }
 
 const Icon = ({
   name,
-  onClick = () => {},
+  onClick,
   size = 1,
   ...rest
 }: IIcon) => (
-  <img
-    style={{ width: String(size + "rem"), height: String(size + "rem")}}
-    onClick={onClick}
-    src={icons[name]}
-    {...rest}
-  />
+    <img
+      style={{ width: String(size + "rem"), height: String(size + "rem"), cursor: !!onClick ? 'pointer' : 'default' }}
+      onClick={onClick}
+      src={icons[name]}
+      {...rest}
+    />
 )
 
 export default Icon;

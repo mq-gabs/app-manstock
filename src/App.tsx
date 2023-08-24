@@ -8,12 +8,12 @@ import { ToastProvider } from './hooks/toast';
 function App() {
   return (
     <ThemeProvider theme={light}>
-      <AuthProvider>
-        <ToastProvider>
-          <GlobalStyles />
-          <Router />
-        </ToastProvider>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+            <GlobalStyles />
+            <Router />
+        </AuthProvider>
+      </ToastProvider>
     </ThemeProvider>
   )
 }

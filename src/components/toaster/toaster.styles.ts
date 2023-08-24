@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const StyledToaster = styled.div`
   width: 300px;
-  height: 600px;
   position: fixed;
   top: 0;
   right: 0;

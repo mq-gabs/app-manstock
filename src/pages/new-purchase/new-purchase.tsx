@@ -3,6 +3,7 @@ import { Button, Card, HMenu, Input, Loading } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
 import { IFormatedProduct, IProduct } from "../../interfaces";
+import { getProducts } from "../../services";
 
 const mockedFormatedProducts = [
   {
@@ -31,60 +32,22 @@ const mockedFormatedProducts = [
   },
 ];
 
-const mockedProducts = [
-  {
-    id: 'b0',
-    name: 'Café maratá 300g',
-    price: 5.9,
-  },
-  {
-    id: 'b1',
-    name: 'Detergente Ypê 90ml',
-    price: 3.8,
-  },
-  {
-    id: 'b2',
-    name: 'Detergente Ypê 90ml',
-    price: 3.8,
-  },
-  {
-    id: 'b3',
-    name: 'Detergente Ypê 90ml',
-    price: 3.8,
-  },
-  {
-    id: 'b4',
-    name: 'Detergente Ypê 90ml',
-    price: 3.8,
-  },
-];
-
 export const NewPurchase = () => {
   document.title = 'Manstock - Nova Compra';
   const [products, setProducts] = useState<IFormatedProduct[]>(mockedFormatedProducts);
-  const [searchedProducts, setSearchedProducts] = useState<IProduct[]>(mockedProducts);
+  const [searchedProducts, setSearchedProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
   const [barCodeInput, setBarCodeInput] = useState<string>("");
   const [nameInput, setNameInput] = useState<string>("");
   const [selectedMenuOption, setSelectedMenuOption] = useState<number>(0);
 
-  useEffect(() => {
-    let total = 0;
-
-    products.forEach((product: IFormatedProduct) => {
-      total += product.quantity * product.price;
-    });
-
-    setTotal(total);
-  }, [products])
-
+  
   const handleSearchProdcut = () => {
-    setIsLoading(isLoading);
-    setSearchedProducts(mockedProducts);
+    getAllProducts();
   }
 
-  const handleCancelPurchase = () => {
+  const handleCancelPurchase = async () => {
 
   }
 
@@ -92,38 +55,62 @@ export const NewPurchase = () => {
 
   }
 
+  
   const handleRemoveProduct = (id: string) => {
     const newProducts = products.filter((product: IFormatedProduct) => product.id !== id);
     setProducts(newProducts);
   }
-
+  
   const handleFinishPurchase = () => {
-
+    
   }
-
+  
   const handleSetQuantity = (id: string, newValue: number) => {
     if (newValue === 0) {
       handleRemoveProduct(id);
       return;
     }
-
+    
     const newProducts = products.map((product: IFormatedProduct) => (
       product.id === id ? { ...product, quantity: newValue } : product
     ));
     setProducts(newProducts);
   }
+  
+  const getAllProducts = async () => {
+    const data = await getProducts({
+      name: nameInput,
+      code: barCodeInput,
+    });
 
+    if (!data) return;
+
+    setSearchedProducts(data[0]);
+
+    console.log({ data });
+  }
+  
+  useEffect(() => {
+    let total = 0;
+    
+    products.forEach((product: IFormatedProduct) => {
+      total += product.quantity * product.price;
+    });
+
+    setTotal(total);
+  }, [products])
+    
   return (
     <StyledNewPurchase>
-      <div className="list">
-        {products.length !== 0 && !isLoading && products.map((product: IFormatedProduct) => (
-          <Card
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            quantity={product.quantity}
-            setQuantity={(newValue: number) => handleSetQuantity(product.id, newValue)}
-            onDelete={() => handleRemoveProduct(product.id)}
+    <div className="list">
+      {products.length !== 0 && !isLoading && products.map((product: IFormatedProduct) => (
+        <Card
+          key={product.id}
+          name={product.name}
+          price={product.price}
+          quantity={product.quantity}
+          setQuantity={(newValue: number) => handleSetQuantity(product.id, newValue)}
+          onDelete={() => handleRemoveProduct(product.id)}
           />
         ))}
         
@@ -186,14 +173,16 @@ export const NewPurchase = () => {
                 simple
                 name={product.name}
                 price={product.price}
-                quantity={0}
+                quantity={1}
                 setQuantity={() => {}}
                 onDelete={() => {}}
               />
             ))}
 
             {searchedProducts.length === 0 && (
-              <p>Nenhum produto encontrado...</p>
+              <div className="no-product">
+                <p>Nenhum produto encontrado...</p>
+              </div>
             )}
             </div>
           )}

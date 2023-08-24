@@ -7,6 +7,7 @@ export const StyledHeader = styled.header`
   padding: 0 2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   .logo {
     display: flex;

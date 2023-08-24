@@ -4,8 +4,6 @@ export const SearchProduct = () => {
   document.title = 'Manstock - Buscar Produto'
   const { popUp } = usePopUp();
 
-  console.log({ popUp });
-
   return (
     <>
       <h1>Search Product</h1>

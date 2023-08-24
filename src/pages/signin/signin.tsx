@@ -8,6 +8,7 @@ import { useAuth } from "../../hooks/auth";
 export const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setUserData } = useAuth();
 
   const handleSignIn = async () => {
@@ -19,9 +20,15 @@ export const SignIn = () => {
     setUserData(data);
   }
 
+  const handlePressEnter = (code: string) => {
+    if (code === 'Enter') {
+      handleSignIn();
+    }
+  }
+
   return (
     <StyledSignIn>
-      <form className="wrapper" onSubmit={handleSignIn}>
+      <div className="wrapper" onKeyDown={({ code }) => handlePressEnter(code)}>
         <div className="title">
         <Icon name="logo" size={4} />
         <h1>Manstock</h1>
@@ -42,8 +49,9 @@ export const SignIn = () => {
         <Button
           text="Entrar"
           onClick={handleSignIn}
+          isLoading={isLoading}
         />
-      </form>
+      </div>
     </StyledSignIn>
   );
 }

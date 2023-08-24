@@ -88,4 +88,8 @@ export const StyledNewPurchase = styled.div`
     }
     overflow-y: auto;
   }
+
+  .no-product {
+    padding: .5rem;
+  }
 `;
