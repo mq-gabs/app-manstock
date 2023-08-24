@@ -19,7 +19,7 @@ export const Button = ({
   return (
     <StyledButton onClick={onClick} color={color}>
       {iconName && (
-        <Icon name={isLoading ? "loading" : iconName} />
+        <Icon onClick={onClick} name={isLoading ? "loading" : iconName} />
       )}
       <p>{text}</p>
     </StyledButton>

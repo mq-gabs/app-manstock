@@ -3,7 +3,9 @@ import { Button, Card, HMenu, Input, Loading } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
 import { IFormatedProduct, IProduct } from "../../interfaces";
-import { getProducts } from "../../services";
+import { getProducts, getRandomProduct } from "../../services";
+import { useAuth } from "../../hooks/auth";
+import { usePopUp } from "../../hooks/toast";
 
 const mockedFormatedProducts = [
   {
@@ -34,15 +36,16 @@ const mockedFormatedProducts = [
 
 export const NewPurchase = () => {
   document.title = 'Manstock - Nova Compra';
-  const [products, setProducts] = useState<IFormatedProduct[]>(mockedFormatedProducts);
+  const [products, setProducts] = useState<IFormatedProduct[]>([]);
   const [searchedProducts, setSearchedProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
   const [barCodeInput, setBarCodeInput] = useState<string>("");
   const [nameInput, setNameInput] = useState<string>("");
   const [selectedMenuOption, setSelectedMenuOption] = useState<number>(0);
+  const { userData } = useAuth();
+  const { popUp } = usePopUp();
 
-  
   const handleSearchProdcut = () => {
     getAllProducts();
   }
@@ -55,6 +58,33 @@ export const NewPurchase = () => {
 
   }
 
+  const handleAddRandomProduct = async () => {
+    const data = await getRandomProduct();
+
+    if (!data) {
+      popUp({
+        message: 'Não foi possível buscar produto aleatório',
+        type: "warning"
+      });
+      return;
+    }
+    
+    let exists = false;
+
+    let newProducts = products.map(product => {
+      if (product.id === data.id) {
+        exists = true;
+        return { ...product, quantity: product.quantity + 1 };
+      }
+      return product;
+    })
+
+    if (!exists) {
+      newProducts = [...products, {...data, quantity: 1 }];
+    }
+
+    setProducts(newProducts);
+  }
   
   const handleRemoveProduct = (id: string) => {
     const newProducts = products.filter((product: IFormatedProduct) => product.id !== id);
@@ -165,6 +195,14 @@ export const NewPurchase = () => {
             onClick={selectedMenuOption === 0 ? handleAddProduct : handleSearchProdcut}
             iconName={selectedMenuOption === 0 ? "addProduct" : "searchWhite"}
           />
+          {selectedMenuOption === 0 && userData.user.profile === 'admin' && (
+            <Button
+              text="adicionar produto aleatório"
+              onClick={handleAddRandomProduct}
+              iconName="addProduct"
+              color="secondary"
+            />
+          )}
           {selectedMenuOption === 1 && (
             <div className="searched-products">
             {searchedProducts.length !== 0 && searchedProducts?.map(product => (

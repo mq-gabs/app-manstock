@@ -20,6 +20,8 @@ import logo from '../../assets/images/logo.svg';
 import password from '../../assets/images/password.svg';
 import email from '../../assets/images/email.svg';
 import out from '../../assets/images/out.svg';
+import eye from '../../assets/images/eye.svg';
+import slashEye from '../../assets/images/slash-eye.svg';
 
 const icons = {
   addChart,
@@ -44,6 +46,8 @@ const icons = {
   email,
   password,
   out,
+  eye,
+  slashEye,
 };
 
 export interface IIcon {
@@ -68,7 +72,9 @@ export interface IIcon {
   | 'logo'
   | 'email'
   | 'password'
-  | 'out';
+  | 'out'
+  | 'eye'
+  | 'slashEye';
   onClick?: () =>  void;
   size?: number;
 }

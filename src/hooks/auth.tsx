@@ -1,6 +1,7 @@
 import { ReactElement, createContext, useContext, useEffect, useState } from "react";
 import { usePopUp } from "./toast";
 import { api } from "../services";
+import jwtDecode from "jwt-decode";
 
 interface IUserData {
   token: string;
@@ -12,6 +13,7 @@ interface IUserData {
     password: string;
     profile_id: string;
     updated_at: string;
+    profile: string;
   }
 }
 
@@ -35,6 +37,8 @@ const AuthProvider = ({ children }: { children: ReactElement[] }) => {
   const [userData, setUserData] = useState<IUserData>(localUserData || {} as IUserData);
 
   const { popUp } = usePopUp();
+
+  console.log({ userData, token: userData.token, decode: userData.token ? jwtDecode(userData.token) : undefined});
 
   useEffect(() => {
     if (!userData.token) return;

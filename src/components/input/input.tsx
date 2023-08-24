@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Icon, { IIcon } from "../icon";
 import { StyledInput } from "./input.styles";
 
@@ -16,17 +17,29 @@ export const Input = ({
   value,
   setValue,
 }: IInput) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const handleToggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <StyledInput>
       {icon && (
         <Icon name={icon} />
       )}
       <input
-        type={type}
+        type={showPassword ? 'text' : type}
         value={value}
         onChange={({ target }) => setValue(target.value)}
         placeholder={placeholder}
       />
+      {type === 'password' && (
+        <Icon
+          name={showPassword ? 'slashEye' : 'eye'}
+          onClick={handleToggleShowPassword}
+        />
+      )}
     </StyledInput>
   );
 }
