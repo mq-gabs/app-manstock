@@ -2,6 +2,7 @@ export interface IProduct {
   id: string;
   name: string;
   price: number;
+  code: string;
 }
 
 export interface IFormatedProduct extends IProduct {

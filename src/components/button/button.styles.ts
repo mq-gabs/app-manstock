@@ -21,4 +21,8 @@ export const StyledButton = styled.div<{color: string}>`
     text-align: center;
     user-selct: none;
   }
+
+  @media (max-width: 400px) {
+    font-size: 0.7rem;
+  }
 `;

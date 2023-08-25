@@ -83,9 +83,9 @@ export const StyledNewPurchase = styled.div`
   .searched-products {
     height: 300px;
     border: 1px solid black;
-    p {
-      font-size: 1rem;
-    }
+    // p {
+    //   font-size: 1rem !important;
+    // }
     overflow-y: auto;
   }
 

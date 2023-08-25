@@ -18,12 +18,14 @@ const ToastContext = createContext({} as IToastContext);
 const ToastProvider = ({ children }: { children: ReactElement }) => {
   const [toasts, setToasts] = useState<IToastElement[]>([]);
 
+  console.log({ toasts });
+
   const popUp = ({
     message,
     type,
     title
   }: IPopUp) => {
-    setToasts([...toasts, {
+    setToasts(prev => [...prev, {
       id: v4(),
       message: message,
       type,

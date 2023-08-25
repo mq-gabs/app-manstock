@@ -20,7 +20,7 @@ export const StyledNewProduct = styled.div`
 
   .products-list-wrapper {
     display: grid;
-    grid-template-rows: auto 60px;
+    grid-template-rows: calc(100vh - 70px - 60px) 60px;
   }
 
   .products-list {
@@ -29,10 +29,33 @@ export const StyledNewProduct = styled.div`
 
   .products-options {
     border-top: 1px solid black;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    padding: .5rem;
     gap: 2rem;
     text-align: center;
+  }
+
+  .empty-purchase-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    color: ${({ theme }) => theme.colors.grey};
+  }
+
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+
+    .product-form {
+      border-right: none;
+      border-bottom: 1px solid black;
+      height: 250px;
+    }
+
+    .products-list-wrapper {
+      grid-template-rows: calc(100vh - 70px - 250px - 60px) 60px;
+    }
   }
 `;

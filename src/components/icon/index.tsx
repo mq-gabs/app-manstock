@@ -23,6 +23,8 @@ import out from '../../assets/images/out.svg';
 import eye from '../../assets/images/eye.svg';
 import slashEye from '../../assets/images/slash-eye.svg';
 import ticket from '../../assets/images/ticket.svg';
+import quest from '../../assets/images/quest.svg';
+import pencil from '../../assets/images/pencil.svg';
 
 const icons = {
   addChart,
@@ -50,6 +52,8 @@ const icons = {
   eye,
   slashEye,
   ticket,
+  quest,
+  pencil,
 };
 
 export interface IIcon {
@@ -77,7 +81,9 @@ export interface IIcon {
   | 'out'
   | 'eye'
   | 'slashEye'
-  | 'ticket';
+  | 'ticket'
+  | 'quest'
+  | 'pencil';
   onClick?: () =>  void;
   size?: number;
 }

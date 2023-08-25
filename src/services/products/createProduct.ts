@@ -8,9 +8,9 @@ interface ICreateProduct {
 
 export const createProduct = async (productData: ICreateProduct) => {
   try {
-    const response = await api.post('/products', productData);
+    const { data } = await api.post('/products', productData);
 
-    return response;
+    return data;
   } catch (error) {
     console.log({ error });
 

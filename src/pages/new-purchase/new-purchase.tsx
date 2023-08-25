@@ -7,33 +7,6 @@ import { getProductByCode, getProducts, getRandomProduct } from "../../services"
 import { useAuth } from "../../hooks/auth";
 import { usePopUp } from "../../hooks/toast";
 
-const mockedFormatedProducts = [
-  {
-    id: 'a0',
-    name: 'Café maratá 300g',
-    price: 5.8,
-    quantity: 0,
-  },
-  {
-    id: 'a1',
-    name: 'Detergente Ypê 90ml',
-    price: 3.8,
-    quantity: 0,
-  },
-  {
-    id: 'a2',
-    name: 'Banana prata',
-    price: 8.99,
-    quantity: 0,
-  },
-  {
-    id: 'a3',
-    name: 'Nuggets de frango 500g',
-    price: 14.90,
-    quantity: 0,
-  },
-];
-
 export const NewPurchase = () => {
   document.title = 'Manstock - Nova Compra';
   const [products, setProducts] = useState<IFormatedProduct[]>([]);
@@ -173,7 +146,7 @@ export const NewPurchase = () => {
         
         {products.length === 0 && !isLoading && (
           <div className="empty-purchase-list">
-            <Icon name="carGrey" />
+            <Icon name="carGrey" size={1.5} />
             <h3>Sua lista está vazia...</h3>
           </div>
         )}
@@ -238,9 +211,7 @@ export const NewPurchase = () => {
                 simple
                 name={product.name}
                 price={product.price}
-                quantity={1}
-                setQuantity={() => {}}
-                onDelete={() => {}}
+                code={product.code}
               />
             ))}
 

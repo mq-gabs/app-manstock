@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledCard = styled.div`
-  padding: 1rem;
+  padding: .5rem;
   display: grid;
   gap: 1rem;
   border-bottom: 1px solid black;

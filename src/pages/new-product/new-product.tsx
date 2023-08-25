@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Input } from "../../components";
 import { StyledNewProduct } from "./new-product.styles";
 import { usePopUp } from "../../hooks";
 import { createProduct } from "../../services";
+import Icon from "../../components/icon";
 
 interface ICreateProduct {
   name: string;
@@ -60,28 +61,62 @@ export const NewProduct = () => {
   }
 
   const createProducts = async () => {
-    const check = await Promise.all(
+    const checks = await Promise.all(
       products.map(async product => (
         await createProduct(product)
       ))
     );
+    let totalProducts = products.length;
+    let newProducts = products;
 
-    if (!check.every(val => val)) {
+    checks.map(check => {
+      if (check) {
+        newProducts = newProducts.filter(product => product.code !== check.product.code);
+      }
+    })
+    
+
+    if (newProducts.length > 0) {
       popUp({
-        message: 'Não foi possível criar os produtos!',
+        message: 'Não foi possível criar algum(ns) produto(s)! Eles continuam na lista.',
         type: 'warning',
       });
-      return;
     }
 
-    popUp({
-      message: 'Produtos criados com sucesso!',
-      type: 'success',
-    });
+    if (newProducts.length < totalProducts) {
+      popUp({
+        message: 'Produtos criados com sucesso!',
+        type: 'success',
+      });
+    }
+
+    console.log({ checks, newProducts });
 
     clearInputs()
-    setProducts([]);
+    setProducts(newProducts);
   }
+
+  const handleEdit = (code: string) => {
+    const newProducts = products.filter(product => {
+      if (product.code === code) {
+        setCode(product.code);
+        setName(product.name);
+        setPrice(product.price);
+        return false;
+      }
+      return true;
+    });
+    setProducts(newProducts);
+  }
+
+  useEffect(() => {
+    if (products.length > 15) {
+      popUp({
+        message: 'Você adicionou a lista mais de 15 produtos! Recomendamos cadastrá-los agora para continuar adicionando outros produtos.',
+        type: 'info'
+      });
+    } 
+  }, [products])
 
   return (
     <StyledNewProduct>
@@ -122,8 +157,16 @@ export const NewProduct = () => {
               onDelete={() => handleRemoveProduct(product.code)}
               code={product.code}
               simple
+              onOption={() => handleEdit(product.code)}
+              optionIcon="pencil"
             />
           ))}
+          {products.length === 0 && (
+            <div className="empty-purchase-list">
+              <Icon name="carGrey" size={1.5} />
+              <h3>Sua lista está vazia...</h3>
+            </div>
+          )}
         </div>
         <div className="products-options">
             <h4>Total de produtos: {products.length}</h4>

@@ -1,4 +1,4 @@
-import Icon from "../icon";
+import Icon, { IIcon } from "../icon";
 import { StyledCard } from "./card.styles";
 
 interface ICard {
@@ -6,9 +6,11 @@ interface ICard {
   price: number;
   quantity?: number;
   setQuantity?: (arg: any) => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   simple?: boolean;
   code?: string;
+  onOption?: () => void;
+  optionIcon?: IIcon["name"];
 }
 
 export const Card = ({
@@ -16,9 +18,11 @@ export const Card = ({
   price,
   quantity = 1,
   setQuantity = () => {},
-  onDelete = () => {},
+  onDelete,
   simple = false,
   code,
+  onOption,
+  optionIcon,
 }: ICard) => {
   const handleAddQuantity = () => {
     setQuantity(quantity + 1);
@@ -38,9 +42,9 @@ export const Card = ({
         )}
         <div className="top">
           <p>{name}</p>
-          {!simple && (
+          {!!onDelete && (
             <Icon name="trash" onClick={onDelete} />
-            )}
+          )}
         </div>
         </div>
       <div className="bottom">
@@ -50,6 +54,9 @@ export const Card = ({
               <Icon size={1.2} name="add" onClick={handleAddQuantity} />
               <Icon size={1.2} name="sub" onClick={handleSubQuantity} />
             </>
+          )}
+          {!!onOption && (
+            <Icon size={1.2} name={optionIcon || "quest"} onClick={onOption} />
           )}
         </div>
         <p>
