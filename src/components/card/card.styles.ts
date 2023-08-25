@@ -53,4 +53,8 @@ export const StyledCard = styled.div`
       }
     }
   }
+
+  .card-code {
+    font-size: .8rem;
+  }
 `;

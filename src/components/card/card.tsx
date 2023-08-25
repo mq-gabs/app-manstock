@@ -4,19 +4,21 @@ import { StyledCard } from "./card.styles";
 interface ICard {
   name: string;
   price: number;
-  quantity: number;
-  setQuantity: (arg: any) => void;
+  quantity?: number;
+  setQuantity?: (arg: any) => void;
   onDelete: () => void;
   simple?: boolean;
+  code?: string;
 }
 
 export const Card = ({
   name,
   price,
-  quantity,
+  quantity = 1,
   setQuantity = () => {},
   onDelete = () => {},
   simple = false,
+  code,
 }: ICard) => {
   const handleAddQuantity = () => {
     setQuantity(quantity + 1);
@@ -30,18 +32,23 @@ export const Card = ({
 
   return (
     <StyledCard>
-      <div className="top">
-        <p>{name}</p>
-        {!simple && (
-          <Icon name="trash" onClick={onDelete} />
+      <div>
+        {code && (
+          <p className="card-code">{code}</p>
         )}
-      </div>
+        <div className="top">
+          <p>{name}</p>
+          {!simple && (
+            <Icon name="trash" onClick={onDelete} />
+            )}
+        </div>
+        </div>
       <div className="bottom">
         <div className="icons">
           {!simple && (
             <>
-              <Icon name="add" onClick={handleAddQuantity} />
-              <Icon name="sub" onClick={handleSubQuantity} />
+              <Icon size={1.2} name="add" onClick={handleAddQuantity} />
+              <Icon size={1.2} name="sub" onClick={handleSubQuantity} />
             </>
           )}
         </div>

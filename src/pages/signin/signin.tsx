@@ -4,19 +4,33 @@ import { signIn } from "../../services/auth/signin";
 import { StyledSignIn } from "./signin.styles";
 import Icon from "../../components/icon";
 import { useAuth } from "../../hooks/auth";
+import { usePopUp } from "../../hooks";
 
 export const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setUserData } = useAuth();
+  const { popUp } = usePopUp();
 
   const handleSignIn = async () => {
     if (!email || !password) {
-      
+      popUp({
+        message: 'Preencha os campos para continuar!',
+        type: 'info',
+      });
+      return;
     }
 
     const data = await signIn({ authData: { email, password }});
+    
+    if (!data) {
+      popUp({
+        message: 'Não foi possível logar. Tente novamente mais tarde!',
+        type: 'warning',
+      });
+    }
+    
     setUserData(data);
   }
 

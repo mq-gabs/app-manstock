@@ -8,17 +8,16 @@ export const StyledToaster = styled.div`
   padding: .5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .5rem;
   z-index: 999;
 `;
 
 export const StyledToast = styled.div<{ animationstate: string, type: string }>`
   border-radius: .5rem;
-  height: 80px;
   animation-name: ${({ animationstate }) => animationstate};
   animation-duration: 300ms;
   animation-fill-mode: forwards;
-  box-shadow: -3px 10px 10px rgba(0,0,0,.8);
+  box-shadow: -3px 5px 5px rgba(0,0,0,.8);
 
   @keyframes pop-up {
     from {

@@ -39,7 +39,7 @@ const AuthProvider = ({ children }: { children: ReactElement[] }) => {
   const { popUp } = usePopUp();
 
   useEffect(() => {
-    if (!userData.token) return;
+    if (!userData?.token) return;
     localStorage.setItem(storageNick, JSON.stringify(userData));
   }, [userData])
 
