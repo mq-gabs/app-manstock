@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:5555',
+  baseURL: import.meta.env.VITE_API_URL || 'https://my-api-manstock.onrender.com',
 });
 
 export * from './products';

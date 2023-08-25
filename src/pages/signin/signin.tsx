@@ -22,6 +22,8 @@ export const SignIn = () => {
       return;
     }
 
+    setIsLoading(false);
+
     const data = await signIn({ authData: { email, password }});
     
     if (!data) {

@@ -1,7 +1,6 @@
 import { ReactElement, createContext, useContext, useEffect, useState } from "react";
 import { usePopUp } from "./toast";
 import { api } from "../services";
-import jwtDecode from "jwt-decode";
 
 interface IUserData {
   token: string;

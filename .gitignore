@@ -25,3 +25,6 @@ dist-ssr
 
 # Dev routines
 scripts
+
+# Env
+.env

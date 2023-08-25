@@ -21,6 +21,7 @@ export const NewPurchase = () => {
 
   const handleSearchProdcut = () => {
     getAllProducts();
+    setIsLoading(false);
   }
 
   const handleCancelPurchase = async () => {
