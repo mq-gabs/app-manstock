@@ -1,4 +1,5 @@
 import { api } from ".."
+import { ICreateResponse } from "../../interfaces";
 
 interface ICreatePurchase {
   total: number;
@@ -14,7 +15,7 @@ export const createPurchase = async ({
   change,
   payment_type_id,
   products,
-}: ICreatePurchase) => {
+}: ICreatePurchase): Promise<ICreateResponse | undefined> => {
   try {
     const { data } = await api.post('/purchases', {
       total,

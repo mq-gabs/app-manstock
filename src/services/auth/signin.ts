@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { api } from "..";
+import { IUserData } from "../../interfaces";
 
 interface ISignIn {
   authData: { email: string, password: string };
@@ -7,7 +8,7 @@ interface ISignIn {
 
 export const signIn = async ({
   authData,
-}: ISignIn) => {
+}: ISignIn): Promise<IUserData | undefined> => {
   try {
     const { data } = await api.post('/auth', authData);
     
@@ -19,5 +20,6 @@ export const signIn = async ({
     return data;
   } catch (error) {
     console.log({ error });
+    return;
   }
 }

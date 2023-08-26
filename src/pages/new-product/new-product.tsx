@@ -101,8 +101,6 @@ export const NewProduct = () => {
       });
     }
 
-    console.log({ checks, newProducts });
-
     clearInputs()
     setProducts(newProducts);
   }

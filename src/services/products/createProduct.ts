@@ -1,4 +1,5 @@
 import { api } from "..";
+import { ICreateProductResponse } from "../../interfaces";
 
 interface ICreateProduct {
   name: string;
@@ -6,7 +7,7 @@ interface ICreateProduct {
   price: number;
 }
 
-export const createProduct = async (productData: ICreateProduct) => {
+export const createProduct = async (productData: ICreateProduct): Promise<ICreateProductResponse | undefined> => {
   try {
     const { data } = await api.post('/products', productData);
 

@@ -1,3 +1,17 @@
+export interface IUserData {
+  token: string;
+  user: {
+    created_at: string;
+    email: string;
+    id: string;
+    name: string;
+    password: string;
+    profile_id: string;
+    updated_at: string;
+    profile: string;
+  }
+}
+
 export interface IProduct {
   id: string;
   name: string;
@@ -25,4 +39,12 @@ export interface IPaymentType {
 
 export interface IFormatedPaymentType extends IPaymentType {
   value: string;
+}
+
+export interface ICreateResponse {
+  message: string;
+}
+
+export interface ICreateProductResponse extends ICreateResponse {
+  product: IProduct;
 }

@@ -1,20 +1,7 @@
 import { ReactElement, createContext, useContext, useEffect, useState } from "react";
 import { usePopUp } from "./toast";
 import { api } from "../services";
-
-interface IUserData {
-  token: string;
-  user: {
-    created_at: string;
-    email: string;
-    id: string;
-    name: string;
-    password: string;
-    profile_id: string;
-    updated_at: string;
-    profile: string;
-  }
-}
+import { IUserData } from "../interfaces";
 
 interface IAuthContext {
   userData: IUserData;

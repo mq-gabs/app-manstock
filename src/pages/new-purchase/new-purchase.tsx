@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, HMenu, Input, Loading, Select } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
-import { IFormatedPaymentType, IFormatedProduct, IPaymentType, IProduct } from "../../interfaces";
+import { IFormatedPaymentType, IFormatedProduct, IProduct } from "../../interfaces";
 import { createPurchase, getPaymentTypes, getProductByCode, getProducts, getRandomProduct } from "../../services";
 import { useAuth } from "../../hooks/auth";
 import { usePopUp } from "../../hooks/toast";
@@ -195,23 +195,25 @@ export const NewPurchase = () => {
   }
 
   const getAllPaymentTypes = async () => {
-    const data: IPaymentType[] = await getPaymentTypes();
-
-    if (!data) {
-      popUp({
-        message: 'Erro ao buscar os tipos de pagamento!',
-        type: 'warning',
-      });
-      return;
+    if (finishPurchaseStep) {
+      const data = await getPaymentTypes();
+      
+      if (!data) {
+        popUp({
+          message: 'Erro ao buscar os tipos de pagamento!',
+          type: 'warning',
+        });
+        return;
+      }
+      
+      const formatedPaymentTypes = data.map(({ id, name }) => ({
+        id,
+        name,
+        value: id,
+      }));
+      
+      setPaymentTypes(formatedPaymentTypes);
     }
-
-    const formatedPaymentTypes = data.map(({ id, name }) => ({
-      id,
-      name,
-      value: id,
-    }));
-
-    setPaymentTypes(formatedPaymentTypes);
   }
   
   useEffect(() => {
