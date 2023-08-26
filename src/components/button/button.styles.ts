@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button<{color: string, isLoading: boolean}>`
+export const StyledButton = styled.button<{ color: string, isloading: boolean }>`
   border-radius: .5rem;
   display: flex;
   gap: 1rem;
@@ -27,7 +27,7 @@ export const StyledButton = styled.button<{color: string, isLoading: boolean}>`
     font-size: 0.7rem;
   }
 
-  ${({ isLoading }) => isLoading && `
+  ${({ isloading }) => isloading && `
     background: grey;
     cursor: default;
 

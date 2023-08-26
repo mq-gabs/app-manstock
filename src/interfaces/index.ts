@@ -17,3 +17,12 @@ export interface IToastElement {
   type: TToastTypes;
   title?: string;
 }
+
+export interface IPaymentType {
+  id: string;
+  name: string;
+}
+
+export interface IFormatedPaymentType extends IPaymentType {
+  value: string;
+}

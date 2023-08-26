@@ -94,4 +94,9 @@ export const StyledNewPurchase = styled.div<{ finish: boolean }>`
   .no-product {
     padding: .5rem;
   }
+
+  .finish-purchase-step {
+    display: grid;
+    gap: .5rem;
+  }
 `;

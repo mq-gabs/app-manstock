@@ -18,12 +18,12 @@ export const Button = ({
   isLoading = false,
 }: IButton) => {
   return (
-    <StyledButton onClick={onClick} color={color} isLoading={isLoading}>
+    <StyledButton onClick={onClick} color={color} isloading={isLoading}>
       {isLoading && (
         <Loading isWhite />
       )}
       {iconName && !isLoading && (
-        <Icon onClick={onClick} name={isLoading ? "loading" : iconName} />
+        <Icon onClick={onClick} name={iconName} />
       )}
       <p>{text}</p>
     </StyledButton>

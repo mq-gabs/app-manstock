@@ -7,3 +7,4 @@ export * from './input';
 export * from './toaster';
 export * from './loading';
 export * from './hmenu';
+export * from './select';

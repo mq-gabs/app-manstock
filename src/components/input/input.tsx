@@ -6,7 +6,7 @@ interface IInput {
   type?: string;
   placeholder?: string;
   icon?: IIcon['name'];
-  value: string | number;
+  value?: string | number;
   setValue: (arg: any) => void;
 }
 

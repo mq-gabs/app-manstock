@@ -6,3 +6,5 @@ export const api = axios.create({
 
 export * from './products';
 export * from './auth';
+export * from './payment-types';
+export * from './purchase';

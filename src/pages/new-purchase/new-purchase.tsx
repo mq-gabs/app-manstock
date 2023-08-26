@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Card, HMenu, Input, Loading } from "../../components";
+import { Button, Card, HMenu, Input, Loading, Select } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
-import { IFormatedProduct, IProduct } from "../../interfaces";
-import { getProductByCode, getProducts, getRandomProduct } from "../../services";
+import { IFormatedPaymentType, IFormatedProduct, IPaymentType, IProduct } from "../../interfaces";
+import { createPurchase, getPaymentTypes, getProductByCode, getProducts, getRandomProduct } from "../../services";
 import { useAuth } from "../../hooks/auth";
 import { usePopUp } from "../../hooks/toast";
 
@@ -20,6 +20,11 @@ export const NewPurchase = () => {
   const [selectedMenuOption, setSelectedMenuOption] = useState<number>(0);
   const { userData } = useAuth();
   const [finishPurchaseStep, setFinishPurchaseStep] = useState<boolean>(false);
+  const [paymentTypes, setPaymentTypes] = useState<IFormatedPaymentType[]>([]);
+  const [selectedPaymentType, setSelectedPaymentType] = useState<string>("");
+  const [payment, setPayment] = useState<number>();
+  const [change, setChange] = useState<number | string>();
+  const [isLoadingCreatePurchase, setIsLoadingCreatePurchase] = useState<boolean>(false);
   const { popUp } = usePopUp();
 
   const handleSearchProdcut = () => {
@@ -104,12 +109,62 @@ export const NewPurchase = () => {
     setProducts(newProducts);
   }
   
-  const handleFinishPurchase = () => {
+  const handleGoToPayment = () => {
+    if (products.length === 0) {
+      popUp({
+        message: 'Sua lista está vazia!',
+        type: 'info',
+      });
+      return;
+    }
     setFinishPurchaseStep(true);
   }
 
   const handleBackToOptions = () => {
     setFinishPurchaseStep(false);
+  }
+
+  const handleFinishPurchase = async () => {
+    if (!payment || !change || !selectedPaymentType) {
+      popUp({
+        message: 'Preencha as informações de pagamento para continuar!',
+        type: 'info',
+      });
+      return;
+    }
+
+    const formatedProducts = products.map(({ id, quantity }) => ({ id, quantity }));
+
+    setIsLoadingCreatePurchase(true);
+
+    const data = await createPurchase({
+      total,
+      change: Number(change),
+      payment,
+      payment_type_id: selectedPaymentType,
+      products: formatedProducts,
+    });
+
+    setIsLoadingCreatePurchase(false);
+
+    if (!data) {
+      popUp({
+        message: 'Erro ao finalizar a compra!',
+        type: 'warning',
+      });
+      return;
+    }
+
+    popUp({
+      message: 'Compra finalizada com sucesso!',
+      type: 'success',
+    });
+
+    setFinishPurchaseStep(false);
+    setProducts([]);
+    setSelectedPaymentType('');
+    setPayment(undefined);
+    setChange('');
   }
   
   const handleSetQuantity = (id: string, newValue: number) => {
@@ -138,6 +193,26 @@ export const NewPurchase = () => {
 
     setSearchedProducts(data[0]);
   }
+
+  const getAllPaymentTypes = async () => {
+    const data: IPaymentType[] = await getPaymentTypes();
+
+    if (!data) {
+      popUp({
+        message: 'Erro ao buscar os tipos de pagamento!',
+        type: 'warning',
+      });
+      return;
+    }
+
+    const formatedPaymentTypes = data.map(({ id, name }) => ({
+      id,
+      name,
+      value: id,
+    }));
+
+    setPaymentTypes(formatedPaymentTypes);
+  }
   
   useEffect(() => {
     let total = 0;
@@ -148,7 +223,22 @@ export const NewPurchase = () => {
 
     setTotal(total);
   }, [products])
+
+  useEffect(() => {
+    getAllPaymentTypes()
+  }, [finishPurchaseStep]);
     
+  useEffect(() => {
+    if (payment) {
+      const newChange = payment - total;
+      if (newChange < 0) {
+        setChange('Não é o suficiente');
+        return;
+      }
+      setChange(payment - total);
+    }
+  }, [payment])
+
   return (
     <StyledNewPurchase finish={finishPurchaseStep}>
     <div className="list">
@@ -160,6 +250,7 @@ export const NewPurchase = () => {
           quantity={product.quantity}
           setQuantity={(newValue: number) => handleSetQuantity(product.id, newValue)}
           onDelete={() => handleRemoveProduct(product.id)}
+          code={product.code}
           />
         ))}
         
@@ -258,10 +349,40 @@ export const NewPurchase = () => {
           </div>
           {!finishPurchaseStep && (
             <Button
-              text="finalizar compra"
+              text="Ir para pagamentos"
               iconName="checkCar"
-              onClick={handleFinishPurchase}
+              onClick={handleGoToPayment}
             />
+          )}
+          {finishPurchaseStep && paymentTypes.length !== 0 && (
+            <div className="finish-purchase-step">
+              <p>Forma de pagamento</p>
+              <Select
+                options={paymentTypes}
+                setSelected={setSelectedPaymentType}
+              />
+              <p>Valor pago</p>
+              <Input
+                placeholder="Valor pago"
+                value={payment}
+                setValue={setPayment}
+                type="number"
+              />
+              <p>Troco</p>
+              <Input
+                placeholder="Troco"
+                value={typeof change === 'number' ? change.toFixed(2) : change}
+                setValue={() => {}}
+              />
+              <Button
+                text="finalizar compra"
+                onClick={handleFinishPurchase}
+                isLoading={isLoadingCreatePurchase}
+              />
+            </div>
+          )}
+          {finishPurchaseStep && paymentTypes.length === 0 && (
+            <Loading />
           )}
         </div>
       </div>
