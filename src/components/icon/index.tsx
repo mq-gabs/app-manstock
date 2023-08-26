@@ -25,6 +25,9 @@ import slashEye from '../../assets/images/slash-eye.svg';
 import ticket from '../../assets/images/ticket.svg';
 import quest from '../../assets/images/quest.svg';
 import pencil from '../../assets/images/pencil.svg';
+import loadingWhite from '../../assets/images/loading-white.svg';
+import back from '../../assets/images/back.svg';
+import enter from '../../assets/images/enter.svg';
 
 const icons = {
   addChart,
@@ -54,6 +57,9 @@ const icons = {
   ticket,
   quest,
   pencil,
+  loadingWhite,
+  back,
+  enter,
 };
 
 export interface IIcon {
@@ -83,7 +89,10 @@ export interface IIcon {
   | 'slashEye'
   | 'ticket'
   | 'quest'
-  | 'pencil';
+  | 'pencil'
+  | 'loadingWhite'
+  | 'back'
+  | 'enter';
   onClick?: () =>  void;
   size?: number;
 }

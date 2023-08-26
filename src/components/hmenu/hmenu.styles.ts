@@ -5,10 +5,9 @@ export const StyledHMenu = styled.div<{ selected: number, size: number }>`
   display: grid;
   grid-template-columns: repeat(${({ size }) => size}, auto);
 
-
   .hmenu-option {
-    padding: .5rem 1rem;
     border: 1px solid black;
+    padding: .5rem 1rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -18,6 +17,10 @@ export const StyledHMenu = styled.div<{ selected: number, size: number }>`
 
     &:hover {
       filter: brightness(130%);
+      background: ${({ theme }) => theme.colors.primary};
+      p {
+        color: white;
+      }
     }
 
     p {

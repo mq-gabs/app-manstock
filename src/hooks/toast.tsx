@@ -18,13 +18,15 @@ const ToastContext = createContext({} as IToastContext);
 const ToastProvider = ({ children }: { children: ReactElement }) => {
   const [toasts, setToasts] = useState<IToastElement[]>([]);
 
-  console.log({ toasts });
-
   const popUp = ({
     message,
     type,
     title
   }: IPopUp) => {
+    const check = toasts.find(toast => toast.message === message);
+
+    if (check) return;
+
     setToasts(prev => [...prev, {
       id: v4(),
       message: message,

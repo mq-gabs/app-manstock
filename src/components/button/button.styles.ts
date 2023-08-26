@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.div<{color: string}>`
+export const StyledButton = styled.button<{color: string, isLoading: boolean}>`
   border-radius: .5rem;
   display: flex;
   gap: 1rem;
@@ -10,6 +10,7 @@ export const StyledButton = styled.div<{color: string}>`
   padding: .5rem;
   cursor: pointer;
   transition: 200ms;
+  border: none;
 
   &:hover {
     filter: brightness(130%);
@@ -25,4 +26,13 @@ export const StyledButton = styled.div<{color: string}>`
   @media (max-width: 400px) {
     font-size: 0.7rem;
   }
+
+  ${({ isLoading }) => isLoading && `
+    background: grey;
+    cursor: default;
+
+    &:hover {
+      filter: none;
+    }
+  `}
 `;

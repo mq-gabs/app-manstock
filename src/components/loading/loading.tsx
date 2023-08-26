@@ -1,10 +1,14 @@
 import Icon from "../icon";
 import { StyledLoading } from "./loading.styles";
 
-export const Loading = () => {
+interface ILoading {
+  isWhite?: boolean;
+}
+
+export const Loading = ({ isWhite = false }: ILoading) => {
   return (
     <StyledLoading>
-      <Icon name="loading" />
+      <Icon name={isWhite ? "loadingWhite" : 'loading'} />
     </StyledLoading>
   );
 }

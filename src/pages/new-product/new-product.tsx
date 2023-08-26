@@ -18,6 +18,7 @@ export const NewProduct = () => {
   const [price, setPrice] = useState<number>();
   const [products, setProducts] = useState<ICreateProduct[]>([]);
   const { popUp } = usePopUp();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const clearInputs = () => {
     setName('');
@@ -61,11 +62,21 @@ export const NewProduct = () => {
   }
 
   const createProducts = async () => {
+    if (products.length === 0) {
+      popUp({
+        message: 'A lista está vazia',
+        type: 'info',
+      });
+      return;
+    }
+
+    setIsLoading(true);
     const checks = await Promise.all(
       products.map(async product => (
         await createProduct(product)
       ))
     );
+    setIsLoading(false);
     let totalProducts = products.length;
     let newProducts = products;
 
@@ -174,6 +185,7 @@ export const NewProduct = () => {
               text="cadastrar todos os produtos"
               iconName="registers"
               onClick={createProducts}
+              isLoading={isLoading}
             /> 
         </div>
       </div>

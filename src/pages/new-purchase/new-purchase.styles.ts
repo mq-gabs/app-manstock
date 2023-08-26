@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledNewPurchase = styled.div`
+export const StyledNewPurchase = styled.div<{ finish: boolean }>`
   display: grid;
   grid-template-columns: 55% 45%;
   height: calc(100vh - 70px);
@@ -16,7 +16,7 @@ export const StyledNewPurchase = styled.div`
     display: grid;
     gap: 1rem;
     max-height: calc(100vh - 70px);
-    grid-template-rows: 30px auto 120px;
+    grid-template-rows: 30px auto 100px;
   }
 
   .options-top {
@@ -36,8 +36,13 @@ export const StyledNewPurchase = styled.div`
 
   .options-bottom {
     padding: .5rem 0;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: .5rem;
+
+    ${({ finish }) => finish && `
+      border-top: 2px solid black;
+    `}
   }
 
   .options-bottom-text {
@@ -83,9 +88,6 @@ export const StyledNewPurchase = styled.div`
   .searched-products {
     height: 300px;
     border: 1px solid black;
-    // p {
-    //   font-size: 1rem !important;
-    // }
     overflow-y: auto;
   }
 

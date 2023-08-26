@@ -22,17 +22,20 @@ export const SignIn = () => {
       return;
     }
 
-    setIsLoading(false);
+    setIsLoading(true);
 
     const data = await signIn({ authData: { email, password }});
-    
+
+    setIsLoading(false);
+
     if (!data) {
       popUp({
         message: 'Não foi possível logar. Tente novamente mais tarde!',
         type: 'warning',
       });
+      return;
     }
-    
+
     setUserData(data);
   }
 
@@ -66,6 +69,7 @@ export const SignIn = () => {
           text="Entrar"
           onClick={handleSignIn}
           isLoading={isLoading}
+          iconName="enter"
         />
       </div>
     </StyledSignIn>
