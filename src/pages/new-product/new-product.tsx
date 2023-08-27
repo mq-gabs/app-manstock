@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Input } from "../../components";
+import { Button, Card, Input, Modal } from "../../components";
 import { StyledNewProduct } from "./new-product.styles";
 import { usePopUp } from "../../hooks";
 import { createProduct } from "../../services";
@@ -19,6 +19,7 @@ export const NewProduct = () => {
   const [products, setProducts] = useState<ICreateProduct[]>([]);
   const { popUp } = usePopUp();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const clearInputs = () => {
     setName('');
@@ -118,6 +119,29 @@ export const NewProduct = () => {
     setProducts(newProducts);
   }
 
+  const handleClearList = () => {
+    setProducts([]);
+    popUp({
+      message: 'A lista foi esvaziada!',
+      type: 'warning',
+      title: 'Aviso!',
+    });
+
+    setOpenModal(false);
+  }
+
+  const handleClickClearList = () => {
+    if (products.length === 0) {
+      popUp({
+        message: 'A lista já está vazia!',
+        type: 'info'
+      });
+      return;
+    }
+
+    setOpenModal(true);
+  }
+
   useEffect(() => {
     if (products.length > 15) {
       popUp({
@@ -178,6 +202,12 @@ export const NewProduct = () => {
           )}
         </div>
         <div className="products-options">
+            <Button
+              text="Limpar lista"
+              iconName="cancel"
+              onClick={handleClickClearList}
+              color="secondary"
+            />
             <h4>Total de produtos: {products.length}</h4>
             <Button
               text="cadastrar todos os produtos"
@@ -186,6 +216,16 @@ export const NewProduct = () => {
               isLoading={isLoading}
             /> 
         </div>
+        <Modal
+          open={openModal}
+          title="Atenção!"
+          text="Tem certeza que deseja limpar a lista?"
+          onClose={() => setOpenModal(false)}
+          onConfirm={handleClearList}
+          confirmText="Limpar"
+          cancelText="Cancelar"
+          confirmColor="secondary"
+        />
       </div>
     </StyledNewProduct>
   );

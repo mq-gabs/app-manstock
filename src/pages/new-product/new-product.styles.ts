@@ -29,11 +29,15 @@ export const StyledNewProduct = styled.div`
 
   .products-options {
     border-top: 1px solid black;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     padding: .5rem;
     gap: 2rem;
     text-align: center;
+
+    h4 {
+      margin: auto; 
+    }
   }
 
   .empty-purchase-list {
