@@ -78,7 +78,7 @@ export const NewProduct = () => {
       ))
     );
     setIsLoading(false);
-    let totalProducts = products.length;
+    const totalProducts = products.length;
     let newProducts = products;
 
     checks.map(check => {

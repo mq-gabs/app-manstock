@@ -8,7 +8,7 @@ interface IHMenuOption {
 interface IHMenu {
   options: IHMenuOption[];
   selected: number;
-  setSelected: (arg: any) => void;
+  setSelected: (arg: number) => void;
 }
 
 export const HMenu = ({

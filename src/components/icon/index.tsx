@@ -28,6 +28,8 @@ import pencil from '../../assets/images/pencil.svg';
 import loadingWhite from '../../assets/images/loading-white.svg';
 import back from '../../assets/images/back.svg';
 import enter from '../../assets/images/enter.svg';
+import date from '../../assets/images/date.svg';
+import time from '../../assets/images/time.svg';
 
 const icons = {
   addChart,
@@ -60,6 +62,8 @@ const icons = {
   loadingWhite,
   back,
   enter,
+  date,
+  time
 };
 
 export interface IIcon {
@@ -92,7 +96,9 @@ export interface IIcon {
   | 'pencil'
   | 'loadingWhite'
   | 'back'
-  | 'enter';
+  | 'enter'
+  | 'date'
+  | 'time';
   onClick?: () =>  void;
   size?: number;
 }
@@ -104,7 +110,7 @@ const Icon = ({
   ...rest
 }: IIcon) => (
     <img
-      style={{ width: String(size + "rem"), height: String(size + "rem"), cursor: !!onClick ? 'pointer' : 'default' }}
+      style={{ width: String(size + "rem"), height: String(size + "rem"), cursor: onClick ? 'pointer' : 'default' }}
       onClick={onClick}
       src={icons[name]}
       {...rest}

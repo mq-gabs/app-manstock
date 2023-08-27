@@ -15,11 +15,6 @@ export const Home = () => {
           onClick={() => navigate('/purchase/new')}
         />
         <BigButton
-          iconName="barCode"
-          text="Consultar produto"
-          onClick={() => navigate('/product/search')}
-        />
-        <BigButton
           iconName="registers"
           text="Consultar compra"
           onClick={() => navigate('/purchase/search')}

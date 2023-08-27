@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyledSelect } from "./select.styles";
 
 interface ISelectOption {

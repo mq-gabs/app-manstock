@@ -5,7 +5,7 @@ interface ICard {
   name: string;
   price: number;
   quantity?: number;
-  setQuantity?: (arg: any) => void;
+  setQuantity?: (arg: number) => void;
   onDelete?: () => void;
   simple?: boolean;
   code?: string;

@@ -47,10 +47,10 @@ export const StyledModal = styled.div`
     border: 1px solid black;
     border-radius: 0 0 .5rem .5rem;
     height: fit-content;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     justify-content: space-evenly;
-    
   }
 
   .window-body {

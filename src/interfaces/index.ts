@@ -48,3 +48,14 @@ export interface ICreateResponse {
 export interface ICreateProductResponse extends ICreateResponse {
   product: IProduct;
 }
+
+export interface IPurchase {
+  id: string;
+  total: number;
+  payment: number;
+  change: number;
+  payment_type_id: string;
+  owner: string;
+  created_at: string;
+  updated_at: string;
+}

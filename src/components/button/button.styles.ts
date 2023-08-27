@@ -21,6 +21,7 @@ export const StyledButton = styled.button<{ color: string, isloading: boolean }>
     text-transform: uppercase;
     text-align: center;
     user-selct: none;
+    margin: auto 0;
   }
 
   @media (max-width: 400px) {
