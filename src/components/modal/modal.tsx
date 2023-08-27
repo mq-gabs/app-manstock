@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Button } from "..";
+import { Button, IButton } from "..";
 import Icon from "../icon";
 import { StyledModal } from "./modal.styles";
 
@@ -13,6 +13,7 @@ interface IModal {
   cancelText?: string;
   children?: ReactElement | ReactElement[];
   text?: string;
+  confirmColor?: IButton['color'];
 }
 
 export const Modal = ({
@@ -25,6 +26,7 @@ export const Modal = ({
   cancelText = 'Cancelar',
   children,
   text = 'Nada para exibir aqui...',
+  confirmColor = 'primary',
 }: IModal) => {
   return (
     <>
@@ -45,16 +47,16 @@ export const Modal = ({
               )}
             </div>
             <div className="window-options">
-              {!!onCancel && (
+              {(!!onCancel || cancelText) && (
                 <Button
                   text={cancelText}
-                  color="secondary"
-                  onClick={onCancel}
+                  color="grey"
+                  onClick={onCancel || onClose}
                 />
               )}
               <Button
                 text={confirmText}
-                color="primary"
+                color={confirmColor}
                 onClick={onConfirm || onClose}
               />
             </div>

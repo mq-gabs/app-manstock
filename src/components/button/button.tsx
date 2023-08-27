@@ -2,11 +2,11 @@ import { Loading } from "..";
 import Icon, { IIcon } from "../icon";
 import { StyledButton } from "./button.styles";
 
-interface IButton {
+export interface IButton {
   text: string;
   iconName?: IIcon["name"];
   onClick: () => void;
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'grey';
   isLoading?: boolean;
 }
 

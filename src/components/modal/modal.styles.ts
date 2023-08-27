@@ -49,7 +49,8 @@ export const StyledModal = styled.div`
     height: fit-content;
     display: flex;
     gap: 1rem;
-    justify-content: center;
+    justify-content: space-evenly;
+    
   }
 
   .window-body {

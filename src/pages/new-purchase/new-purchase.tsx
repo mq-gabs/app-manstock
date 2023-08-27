@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, HMenu, Input, Loading, Select } from "../../components";
+import { Button, Card, HMenu, Input, Loading, Modal, Select } from "../../components";
 import { StyledNewPurchase } from "./new-purchase.styles";
 import Icon from "../../components/icon";
 import { IFormatedPaymentType, IFormatedProduct, IProduct } from "../../interfaces";
@@ -25,6 +25,7 @@ export const NewPurchase = () => {
   const [payment, setPayment] = useState<number>();
   const [change, setChange] = useState<number | string>();
   const [isLoadingCreatePurchase, setIsLoadingCreatePurchase] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const { popUp } = usePopUp();
 
   const handleSearchProdcut = () => {
@@ -38,6 +39,20 @@ export const NewPurchase = () => {
       type: 'warning',
       title: 'Aviso!',
     });
+
+    setOpenModal(false);
+  }
+
+  const handleClickCancelPurchase = () => {
+    if (products.length === 0) {
+      popUp({
+        message: 'A lista já está vazia!',
+        type: 'info',
+      });
+      return;
+    }
+
+    setOpenModal(true);
   }
 
   const addProduct = (data: IProduct) => {
@@ -269,7 +284,7 @@ export const NewPurchase = () => {
           <Button
             text="cancelar compra"
             iconName="cancel"
-            onClick={handleCancelPurchase}
+            onClick={handleClickCancelPurchase}
             color="secondary"
           />
         </div>
@@ -388,6 +403,17 @@ export const NewPurchase = () => {
           )}
         </div>
       </div>
+
+      <Modal
+        open={openModal}
+        text="Tem certeza que deseja cancelar a compra?"
+        title="Atenção!"
+        onClose={() => setOpenModal(false)}
+        onConfirm={handleCancelPurchase}
+        confirmText="Cancelar compra"
+        cancelText="Continuar comprando"
+        confirmColor="secondary"
+      />
     </StyledNewPurchase>
   );
 }
