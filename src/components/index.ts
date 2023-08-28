@@ -12,3 +12,4 @@ export * from './modal';
 export * from './purchase-card';
 export * from './dropdown';
 export * from './pagination';
+export * from './user-card';

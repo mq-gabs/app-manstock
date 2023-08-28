@@ -23,7 +23,7 @@ export const Button = ({
         <Loading isWhite />
       )}
       {iconName && !isLoading && (
-        <Icon onClick={onClick} name={iconName} />
+        <Icon name={iconName} />
       )}
       <p>{text}</p>
     </StyledButton>

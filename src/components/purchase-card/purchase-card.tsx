@@ -5,6 +5,7 @@ import { getPaymentTypeById } from "../../services";
 import { usePopUp } from "../../hooks";
 import { Card, Dropdown, Loading } from "..";
 import { getProductsByPurchaseId } from "../../services/products/getProductsByPurchaseId";
+import { getDateAndTime } from "../../utils";
 
 interface IPurchaseCard extends Omit<IPurchase, "owner" | "updated_at"> {
   
@@ -26,11 +27,7 @@ export const PurchaseCard = ({
   const { popUp } = usePopUp();
 
   const getPaymentType = async () => {
-    setIsLoading(true);
-
     const data = await getPaymentTypeById({ payment_type_id });
-
-    setIsLoading(false);
 
     if (!data) {
       popUp({
@@ -44,7 +41,11 @@ export const PurchaseCard = ({
   }
 
   const getProductsByPurchase = async () => {
+    setIsLoading(true);
+
     const data = await getProductsByPurchaseId({ id });
+
+    setIsLoading(false);
 
     if (!data) {
       popUp({
@@ -67,16 +68,7 @@ export const PurchaseCard = ({
     getPaymentType();
   }, [])
 
-  const formatDateTime = () => {
-    const [date, time] = created_at.split(' ');
-    const [year, month, day] = date.split('-');
-    const formatedDate = [day, month, year].join('/');
-    const [hour, minutes, ] = time.split(':');
-    const formatedTime = [hour,minutes].join(':');
-    return [formatedDate, formatedTime];
-  }
-
-  const [date, time] = formatDateTime();
+  const [date, time] = getDateAndTime(created_at);
 
   return (
     <StyledPurchaseCard>
@@ -95,7 +87,7 @@ export const PurchaseCard = ({
         iconName="list"
       >
         <>
-          {products.length !== 0 && openDropdown && products.map(product => (
+          {(products.length !== 0 || !isLoading) && openDropdown && products.map(product => (
             <Card
               simple
               key={product.id}
@@ -104,7 +96,7 @@ export const PurchaseCard = ({
               code={product.code}
             />
           ))}
-          {products.length === 0 && openDropdown && (
+          {(products.length === 0 || isLoading) && openDropdown && (
             <div className="cards-loading">
               <Loading />
             </div>

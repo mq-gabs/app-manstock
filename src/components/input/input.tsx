@@ -39,6 +39,7 @@ export const Input = ({
       />
       {type === 'password' && (
         <Icon
+          background
           name={showPassword ? 'slashEye' : 'eye'}
           onClick={handleToggleShowPassword}
         />

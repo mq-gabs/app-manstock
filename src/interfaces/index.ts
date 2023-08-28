@@ -5,10 +5,9 @@ export interface IUserData {
     email: string;
     id: string;
     name: string;
-    password: string;
     profile_id: string;
     updated_at: string;
-    profile: string;
+    profile: 'admin' | 'default';
   }
 }
 
@@ -41,11 +40,11 @@ export interface IFormatedPaymentType extends IPaymentType {
   value: string;
 }
 
-export interface ICreateResponse {
+export interface IDefaultResponse {
   message: string;
 }
 
-export interface ICreateProductResponse extends ICreateResponse {
+export interface ICreateProductResponse extends IDefaultResponse {
   product: IProduct;
 }
 

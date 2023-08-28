@@ -8,3 +8,4 @@ export * from './products';
 export * from './auth';
 export * from './payment-types';
 export * from './purchase';
+export * from './users';

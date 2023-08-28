@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { StyledDropdown } from "./dropdown.styles";
 import { IIcon } from "..";
 import Icon from "../icon";

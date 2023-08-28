@@ -43,7 +43,7 @@ export const Card = ({
         <div className="top">
           <p>{name}</p>
           {!!onDelete && (
-            <Icon name="trash" onClick={onDelete} />
+            <Icon name="trash" onClick={onDelete} background />
           )}
         </div>
         </div>
@@ -51,12 +51,12 @@ export const Card = ({
         <div className="icons">
           {!simple && (
             <>
-              <Icon size={1.2} name="add" onClick={handleAddQuantity} />
-              <Icon size={1.2} name="sub" onClick={handleSubQuantity} />
+              <Icon size={1.2} name="add" onClick={handleAddQuantity} background />
+              <Icon size={1.2} name="sub" onClick={handleSubQuantity} background />
             </>
           )}
           {!!onOption && (
-            <Icon size={1.2} name={optionIcon || "quest"} onClick={onOption} />
+            <Icon size={1.2} name={optionIcon || "quest"} onClick={onOption} background />
           )}
         </div>
         <p>

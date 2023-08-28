@@ -13,7 +13,8 @@ export const Header = () => {
         <Icon name="logo" size={3} onClick={() => navigate('/')} />
         <h1>Manstock</h1>
       </div>
-      <div>
+      <div className="header-actions">
+        <Icon name="user" size={1.5} onClick={() => navigate('/profile')} />
         <Icon name="out" size={1.5} onClick={logOut} />
       </div>
     </StyledHeader>

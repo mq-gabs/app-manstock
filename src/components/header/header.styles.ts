@@ -21,6 +21,11 @@ export const StyledHeader = styled.header`
     height: 3rem;
   }
 
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
   h1 {
     color: ${({ theme }) => theme.colors.secondary};
     font-size: 2.5rem;
@@ -30,7 +35,19 @@ export const StyledHeader = styled.header`
     padding: 0 1rem;
 
     h1 {
-      display: none;
+      font-size: 1.8rem;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    padding: 0 .5rem;
+
+    .logo {
+      gap: .5rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
     }
   }
 `;
