@@ -25,8 +25,10 @@ export const Dropdown = ({
         <div className="dropdown-head-title">
           {iconName && (
             <Icon name={iconName} />
-            )}
-          {title}
+          )}
+          <p>
+            {title}
+          </p>
         </div>
         <div className="arrow-wrapper">
           <Icon size={1.5} name="arrow" onClick={() => setOpen(!open)} />

@@ -36,6 +36,8 @@ import arrowLeft from '../../assets/images/arrow-left.svg';
 import arrowRight from '../../assets/images/arrow-right.svg';
 import user from '../../assets/images/user.svg';
 import newUser from '../../assets/images/new-user.svg';
+import pencilWhite from '../../assets/images/pencil-white.svg';
+
 import light from '../../assets/themes/light';
 
 const icons = {
@@ -77,6 +79,7 @@ const icons = {
   arrowRight,
   user,
   newUser,
+  pencilWhite,
 };
 
 export interface IIcon {
@@ -117,7 +120,8 @@ export interface IIcon {
   | 'arrowLeft'
   | 'arrowRight'
   | 'user'
-  | 'newUser';
+  | 'newUser'
+  | 'pencilWhite';
   onClick?: () =>  void;
   size?: number;
   background?: boolean;

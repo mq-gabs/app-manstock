@@ -24,6 +24,12 @@ export const StyledHeader = styled.header`
   .header-actions {
     display: flex;
     gap: 1rem;
+    align-items: center;
+
+    p {
+      color: white;
+      font-size: .9rem;
+    }
   }
 
   h1 {

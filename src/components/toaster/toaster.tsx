@@ -38,7 +38,7 @@ const Toast = ({
 
   setTimeout(() => {
     handleDelete();
-  }, 8300)
+  }, 5300)
 
   return (
     <StyledToast animationstate={animationState} type={type}>

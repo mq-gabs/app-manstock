@@ -20,6 +20,7 @@ export const StyledDropdown = styled.div<{ open: boolean }>`
   .dropdown-head-title {
     display: flex;
     gap: .5rem;
+    align-items: center;
   }
 
   .dropdown-body {

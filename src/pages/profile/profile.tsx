@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, Input, Loading, Modal, Select, UserCard } from "../../components";
-import { useAuth } from "../../hooks";
+import { useAuth, usePopUp } from "../../hooks";
 import { StyledProfile } from "./profile.styles";
 import { IUserData } from "../../interfaces";
-import { getAllUsers } from "../../services";
+import { createUser, deleteUser, getAllUsers, updateUser } from "../../services";
 
 interface IUserForDelete {
   id: string;
@@ -23,7 +23,9 @@ export const Profile = () => {
   const [userInforForEdit, setUserInfoForEdit] = useState<IUserData["user"]>({} as IUserData["user"]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const isOwnData = userData.user.id === userInforForEdit.id;
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { popUp } = usePopUp();
+
   const handleEditOwnData = () => {
     setUserInfoForEdit(userData.user);
   }
@@ -32,20 +34,95 @@ export const Profile = () => {
     setUserInfoForEdit(user);
   }
 
-  const handleDeleteUser = () => {
+  const handleDeleteUser = async () => {
+    setIsLoading(true);
 
+    const data = await deleteUser({ id: userInfoForDelete.id });
+
+    setIsLoading(false);
+
+    if (!data) {
+      popUp({
+        message: 'Não foi possível excluir o usuário',
+        type: 'warning',
+      });
+      return;
+    }
+
+    popUp({
+      message: 'Usuário excluído com sucesso!',
+      type: 'success',
+    });
+
+    setOpenModal(false);
+
+    getUsers();
   }
 
-  const handleSaveData = () => {
+  const handleUpdateUser = async () => {
+    setIsLoading(true);
 
+    const data = await updateUser({
+      id: userInforForEdit.id,
+      name: name || userInfoForDelete.name,
+      email,
+      oldPassword,
+      newPassword,
+      profileName: profileType,
+    });
+
+    setIsLoading(false);
+
+    if (!data) {
+      popUp({
+        message: 'Não foi possível editar informações do usuário',
+        type: 'warning',
+      });
+      return;
+    }
+
+    popUp({
+      message: 'Informações do usuário alteradas com sucesso!',
+      type: 'success',
+    });
+
+    getUsers();
   }
 
-  const handleCreateNewUser = () => {
-    
+  const handleCreateNewUser = async () => {
+    setIsLoading(true);
+
+    const data = await createUser({
+      name,
+      email,
+      password: oldPassword,
+      userProfile: profileType,
+    });
+
+    setIsLoading(false);
+
+    if (!data) {
+      popUp({
+        message: 'Não foi possível criar novo usuário',
+        type: 'warning'
+      });
+      return;
+    }
+
+    popUp({
+      message: 'Usuário criado com sucesso!',
+      type: 'success',
+    });
+
+    getUsers();
   }
 
   const handleClearInputs = () => {
-
+    setName("");
+    setEmail("");
+    setOldPassword("");
+    setNewPassword("");
+    setProfileType("");
   }
 
   const getUsers = async () => {
@@ -114,20 +191,22 @@ export const Profile = () => {
         />
         <Button
           text="salvar alterações"
-          onClick={handleSaveData}
+          isLoading={isLoading}
+          onClick={handleUpdateUser}
         />
         {isAdmin && (
           <>
-          <Button
-            text="limpar campos"
-            color="secondary"
-            iconName="cancel"
-            onClick={handleClearInputs}
-          />
-          <Button
-            text={"criar novo usuário"}
-            iconName="newUser"
-            onClick={handleCreateNewUser}
+            <Button
+              text="limpar campos"
+              color="secondary"
+              iconName="cancel"
+              onClick={handleClearInputs}
+            />
+            <Button
+              text={"criar novo usuário"}
+              iconName="newUser"
+              onClick={handleCreateNewUser}
+              isLoading={isLoading}
             />
           </>
         )}
