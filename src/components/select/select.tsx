@@ -9,16 +9,21 @@ interface ISelectOption {
 interface ISelect {
   options: ISelectOption[];
   setSelected: (arg: string) => void;
+  selected?: string | number;
+  defaultValue?: string | number;
 }
 
 export const Select = ({ 
   options,
   setSelected,
+  defaultValue,
+  selected,
 }: ISelect) => {
 
   return (
     <StyledSelect
       onChange={({ target }) => setSelected(target.value)}
+      value={selected || defaultValue}
     >
       <option
         key={666}

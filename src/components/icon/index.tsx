@@ -30,6 +30,10 @@ import back from '../../assets/images/back.svg';
 import enter from '../../assets/images/enter.svg';
 import date from '../../assets/images/date.svg';
 import time from '../../assets/images/time.svg';
+import list from '../../assets/images/list.svg';
+import arrow from '../../assets/images/arrow.svg';
+import arrowLeft from '../../assets/images/arrow-left.svg';
+import arrowRight from '../../assets/images/arrow-right.svg';
 
 const icons = {
   addChart,
@@ -63,7 +67,11 @@ const icons = {
   back,
   enter,
   date,
-  time
+  time,
+  list,
+  arrow,
+  arrowLeft,
+  arrowRight
 };
 
 export interface IIcon {
@@ -98,7 +106,11 @@ export interface IIcon {
   | 'back'
   | 'enter'
   | 'date'
-  | 'time';
+  | 'time'
+  | 'list'
+  | 'arrow'
+  | 'arrowLeft'
+  | 'arrowRight';
   onClick?: () =>  void;
   size?: number;
 }

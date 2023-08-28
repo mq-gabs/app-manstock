@@ -41,6 +41,14 @@ export const StyledSearchPurchase = styled.div`
     color: ${({ theme }) => theme.colors.grey};
   }
 
+  .search-list {
+    max-width: 800px;
+    margin: .5rem auto 0;
+    display: grid;
+    gap: .5rem;
+    padding: .5rem;
+  }
+
   @media (max-width: 800px) {
     .bottom-filters {
       grid-template-columns: repeat(2, 1fr);
@@ -56,7 +64,5 @@ export const StyledSearchPurchase = styled.div`
     .top-filters, .bottom-filters {
       grid-template-columns: 1fr;
     } 
-
-
   }
 `;

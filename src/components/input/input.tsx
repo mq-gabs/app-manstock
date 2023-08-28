@@ -8,6 +8,7 @@ interface IInput {
   icon?: IIcon['name'];
   value?: string | number;
   setValue: (arg: any) => void;
+  pattern?: string;
 }
 
 export const Input = ({
@@ -16,6 +17,7 @@ export const Input = ({
   icon,
   value,
   setValue,
+  pattern,
 }: IInput) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -33,6 +35,7 @@ export const Input = ({
         value={value}
         onChange={({ target }) => setValue(target.value)}
         placeholder={placeholder}
+        pattern={pattern}
       />
       {type === 'password' && (
         <Icon

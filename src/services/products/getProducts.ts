@@ -1,6 +1,6 @@
 import { api } from "..";
 import { IProduct } from "../../interfaces";
-import { formatQuarey } from "../../utils";
+import { formatQuery } from "../../utils";
 
 interface IGetProducts {
   name?: string;
@@ -24,7 +24,7 @@ export const getProducts = async ({
   endTime,
 }: IGetProducts): Promise<[IProduct[], number] | undefined> => {
   try {
-    const query = formatQuarey({
+    const query = formatQuery({
       name,
       code,
       page,

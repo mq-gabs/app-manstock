@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BigButton } from "../../components";
+import { BigButton, Dropdown } from "../../components";
 import { StyledHome } from "./home.styles";
 
 export const Home = () => {

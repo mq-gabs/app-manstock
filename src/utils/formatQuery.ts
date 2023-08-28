@@ -1,4 +1,4 @@
-export const formatQuarey = (obj: any) => {
+export const formatQuery = (obj: any) => {
   let query = '?';
   Object.keys(obj).map(key => {
     query += `${key}${obj[key] ? `=${obj[key]}` : ''}&`;
