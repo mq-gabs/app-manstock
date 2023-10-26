@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app-manstock:
+    image: app-manstock
+    container_name: app-manstock
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5179:5179
+    volumes:
+      - /app
+    command: npm run start
+    
+
